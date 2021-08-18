@@ -1,0 +1,45 @@
+% Fatos
+
+gerou(kelly, maria).
+gerou(cleber, maria).
+gerou(cleber, bruna).
+gerou(maria, julia).
+gerou(maria, pedro).
+gerou(pedro, lucas).
+
+feminino(kelly).
+feminino(maria).
+feminino(julia).
+feminino(bruna).
+masculino(cleber).
+masculino(pedro).
+masculino(lucas).
+
+
+
+%Regras
+
+% Y é filho de X se X gerou Y
+filho(Y, X) :-
+    gerou(X, Y).
+
+% Y é neto de X se X gerou Z e Z gerou Y
+neto(Y, X) :-
+    gerou(X, Z),
+    gerou(Z, Y).
+
+%
+filho_ou_pai(X, Y) :-
+    gerou(X, Y);
+    gerou(Y, X).
+
+parente(X, Y) :-
+    filho_ou_pai(X, Y).
+
+parente(X, Y) :-
+    filho_ou_pai(X, Z),
+    parente(Z, Y).
+
+
+
+
