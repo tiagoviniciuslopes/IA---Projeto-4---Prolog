@@ -1,5 +1,11 @@
 % Fatos
 
+% Formato dos fatos 
+% Existência de Rota entre Pontos
+% Simbologia:
+%   A: ponto de partida
+%   B: ponto de destino
+%   Custo: custo da rota, em reais, entre A e B
 rota(a, b, 100).
 rota(a, e, 50).
 rota(b, c, 200).
@@ -10,7 +16,7 @@ rota(d, f, 100).
 rota(f, g, 100).
 rota(g, h, 100).
 rota(h, g, 100).
-
+rota(h, a, 100).
 rota(b, a, 100).
 rota(c, b, 200).
 
