@@ -52,35 +52,35 @@ caminho(X, X, 0).
 % No inicio o unico elemento da lista é o Fim.
 % Existe um caminho entre Inicio e Fim se existir um caminho1 entre
 %     Inicio e Fim.
-caminho(Inicio, Fim, Distancia, Caminho) :-
-    caminho1(Inicio, [Fim], 0, Distancia, Caminho, []).
+caminho(Inicio, Fim, Custo, Caminho) :-
+    caminho1(Inicio, [Fim], 0, Custo, Caminho, []).
 
 % Recursão do fim para o começo.
 % Acaba quando a primeira cidade da lista for a origem.
-% Atribui a variavel Distancia para a variavel Distancia da primeira
+% Atribui a variavel Custo para a variavel Custo da primeira
 %     chamada.
 % Atribui a lista de pares para a variavel Caminho
-caminho1(Cabeca, [Cabeca|_Calda], Distancia, Distancia, [CaminhoPar|CaldaPar], [CaminhoPar|CaldaPar]).
+caminho1(Cabeca, [Cabeca|_Calda], Custo, Custo, [CaminhoPar|CaldaPar], [CaminhoPar|CaldaPar]).
 
 % Acrescenta o intermediário na lista.
-% Passa D2 como parametro de distancia.
-% DistanciaAux e CaminhoAux vão dar o valor para as variaveis maiores no
+% Passa D2 como parametro de Custo.
+% CustoAux e CaminhoAux vão dar o valor para as variaveis maiores no
 %     fim.
 % A lista [CaminhoPar|CaldaPar] encadeia os pares de cidades dentro do
 %     caminho.
-caminho1(Inicio, [Adjacente|Calda], Distancia, DistanciaAux, CaminhoAux, [CaminhoPar|CaldaPar]) :-
+caminho1(Inicio, [Adjacente|Calda], Custo, CustoAux, CaminhoAux, [CaminhoPar|CaldaPar]) :-
     rota(Intermediario, Adjacente, D1),
     not(pertence1(Intermediario, [Adjacente | Calda])),
-    D2 is Distancia + D1,
-    caminho1(Inicio, [Intermediario, Adjacente | Calda], D2, DistanciaAux, CaminhoAux, [Intermediario-Adjacente,CaminhoPar|CaldaPar]).
+    D2 is Custo + D1,
+    caminho1(Inicio, [Intermediario, Adjacente | Calda], D2, CustoAux, CaminhoAux, [Intermediario-Adjacente,CaminhoPar|CaldaPar]).
 
 % Na primeira chamada não existe nenhum par feito, uma pesquisa inicial
 %     é necessária.
-caminho1(Inicio, [Adjacente|Calda], Distancia, DistanciaAux, CaminhoAux, []) :-
+caminho1(Inicio, [Adjacente|Calda], Custo, CustoAux, CaminhoAux, []) :-
     rota(Intermediario, Adjacente, D1),
     not(pertence1(Intermediario, [Adjacente | Calda])),
-    D2 is Distancia + D1,
-    caminho1(Inicio, [Intermediario, Adjacente | Calda], D2, DistanciaAux, CaminhoAux, [Intermediario-Adjacente]).
+    D2 is Custo + D1,
+    caminho1(Inicio, [Intermediario, Adjacente | Calda], D2, CustoAux, CaminhoAux, [Intermediario-Adjacente]).
 
 
 % Existe um caminho unico entre Inicio e Fim se não existe outro caminho
